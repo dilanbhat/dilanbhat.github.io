@@ -1,0 +1,199 @@
+/* ====================================================================
+ * BioSphere — UI styles
+ * ==================================================================== */
+:root {
+  --bg: #0c1018;
+  --panel: #141b27;
+  --panel2: #1b2433;
+  --line: #283242;
+  --text: #dfe5ef;
+  --muted: #8c98ad;
+  --accent: #5fd97a;
+  --accent2: #7ab8ff;
+  --danger: #ff6b5e;
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  overflow: hidden;
+}
+
+#app { display: flex; flex-direction: column; height: 100vh; }
+
+/* ---------- top bar ---------- */
+#topbar {
+  display: flex; align-items: center; gap: 18px;
+  padding: 8px 14px;
+  background: linear-gradient(180deg, #161f2e, #11161f);
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+.brand { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
+.brand span { background: linear-gradient(90deg, #5fd97a, #7ab8ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.transport { display: flex; align-items: center; gap: 8px; }
+.speedwrap { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; }
+.speedwrap input { width: 110px; }
+#speedLabel { min-width: 28px; color: var(--text); }
+.livestats { margin-left: auto; display: flex; gap: 16px; font-variant-numeric: tabular-nums; }
+.livestats .stat { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; }
+.livestats .stat b { font-size: 15px; }
+.livestats .stat small { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ---------- layout ---------- */
+#main { flex: 1; display: flex; min-height: 0; }
+.panel { width: 270px; background: var(--panel); border-right: 1px solid var(--line); overflow-y: auto; flex-shrink: 0; }
+#right { border-right: none; border-left: 1px solid var(--line); width: 340px; }
+#stage { flex: 1; position: relative; min-width: 0; background: #070a10; }
+#view { width: 100%; height: 100%; display: block; cursor: crosshair; }
+
+/* ---------- sections ---------- */
+.section { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.section h3 { margin: 0 0 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+.row { display: flex; gap: 8px; }
+.row .btn { flex: 1; }
+
+/* ---------- buttons ---------- */
+.btn {
+  background: var(--panel2); color: var(--text); border: 1px solid var(--line);
+  padding: 7px 10px; border-radius: var(--radius); cursor: pointer; font-size: 12px;
+  transition: background 0.12s, border-color 0.12s, transform 0.05s;
+}
+.btn:hover { background: #243044; border-color: #3a485e; }
+.btn:active { transform: translateY(1px); }
+.btn.primary { background: linear-gradient(180deg, #2c9d4d, #1f7d3c); border-color: #2c9d4d; font-weight: 600; }
+.btn.primary:hover { background: linear-gradient(180deg, #34b95b, #259147); }
+.btn.wide { width: 100%; margin-bottom: 8px; }
+.btn.small { padding: 4px 8px; font-size: 11px; }
+
+/* ---------- sliders / inputs ---------- */
+label.slider, label.check { display: block; margin: 9px 0; color: var(--muted); font-size: 12px; }
+label.slider input[type=range] { width: 100%; margin-top: 4px; }
+label.slider span { color: var(--text); float: right; font-variant-numeric: tabular-nums; }
+label.check { color: var(--text); }
+select { width: 100%; margin-top: 4px; background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 5px; }
+input[type=range] { accent-color: var(--accent); }
+input[type=checkbox] { accent-color: var(--accent); }
+
+/* ---------- god mode tools ---------- */
+.tools { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.tool {
+  background: var(--panel2); border: 1px solid var(--line); color: var(--text);
+  padding: 7px 6px; border-radius: 6px; cursor: pointer; font-size: 11px; text-align: left;
+}
+.tool:hover { background: #243044; }
+.tool.active { border-color: var(--accent); background: #1d3326; color: #c9f7d4; }
+.hint { color: var(--muted); font-size: 11px; line-height: 1.5; margin: 8px 0 0; }
+
+/* ---------- right tabs ---------- */
+.tabs { display: flex; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); z-index: 2; }
+.tab { flex: 1; background: none; border: none; color: var(--muted); padding: 11px 4px; cursor: pointer; font-size: 12px; border-bottom: 2px solid transparent; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--text); border-bottom-color: var(--accent); }
+.tabpage { padding: 12px 14px; }
+.tabpage h4 { margin: 14px 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+.tabpage h4:first-child { margin-top: 0; }
+.tabpage h4 select { width: auto; margin: 0; font-size: 11px; padding: 2px 4px; }
+.chart { width: 100%; background: #0b1019; border: 1px solid var(--line); border-radius: 6px; display: block; }
+
+/* ---------- inspector ---------- */
+.inspect-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+#inspName { font-weight: 700; font-size: 14px; flex: 1; }
+.kv { display: grid; grid-template-columns: auto auto; gap: 3px 10px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.kv .k { color: var(--muted); }
+.kv .v { text-align: right; }
+#chBrain { width: 100%; background: #0b1019; border: 1px solid var(--line); border-radius: 6px; }
+.genebar { margin: 5px 0; }
+.genebar .lbl { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.genebar .lbl b { color: var(--text); font-variant-numeric: tabular-nums; }
+.genebar .track { height: 7px; background: var(--panel2); border-radius: 4px; overflow: hidden; }
+.genebar .fill { height: 100%; border-radius: 4px; }
+
+/* ---------- species list ---------- */
+.species-item { display: flex; align-items: center; gap: 10px; padding: 8px; border: 1px solid var(--line); border-radius: 6px; margin-bottom: 6px; cursor: pointer; }
+.species-item:hover { background: var(--panel2); }
+.species-dot { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.25); }
+.species-item .meta { flex: 1; font-size: 12px; }
+.species-item .meta small { color: var(--muted); display: block; font-size: 10px; }
+.species-item .cnt { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ---------- turbo overlay ---------- */
+#turboOverlay { position: absolute; inset: 0; background: rgba(7,10,16,0.82); display: flex; align-items: center; justify-content: center; z-index: 10; }
+#turboOverlay.hidden, .hidden { display: none !important; }
+.turbo-card { text-align: center; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 30px 44px; }
+.turbo-card h2 { margin: 14px 0 6px; }
+.turbo-card p { color: var(--muted); margin: 0 0 18px; font-variant-numeric: tabular-nums; }
+.spinner { width: 44px; height: 44px; border: 4px solid var(--line); border-top-color: var(--accent); border-radius: 50%; margin: 0 auto; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* scrollbars */
+.panel::-webkit-scrollbar { width: 9px; }
+.panel::-webkit-scrollbar-thumb { background: #283242; border-radius: 5px; }
+.panel::-webkit-scrollbar-track { background: transparent; }
+
+/* minimap + season badge (overlaid on the stage) */
+#minimap {
+  position: absolute; left: 10px; bottom: 10px; width: 180px; height: 120px;
+  border: 1px solid var(--line); border-radius: 6px; background: #070a10;
+  cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.5); opacity: 0.92;
+}
+#seasonBadge {
+  position: absolute; left: 10px; top: 10px;
+  background: rgba(16,22,33,0.85); border: 1px solid var(--line);
+  border-radius: 18px; padding: 5px 12px; font-size: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 7px; pointer-events: none;
+}
+#seasonBadge .dis { color: #ffb05e; }
+
+/* segmented control (tree / muller) */
+.seg { display: flex; gap: 6px; margin-bottom: 10px; }
+.segbtn { flex: 1; background: var(--panel2); border: 1px solid var(--line); color: var(--muted);
+  padding: 6px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+.segbtn.active { border-color: var(--accent); color: #c9f7d4; background: #1d3326; }
+
+/* chronicle */
+#chronicleList { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+.chron { display: flex; gap: 8px; align-items: baseline; padding: 5px 7px; border-radius: 6px;
+  background: var(--panel2); font-size: 12px; line-height: 1.35; }
+.chron .ico { font-size: 14px; flex-shrink: 0; }
+.chron .t { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 10px; flex-shrink: 0; min-width: 36px; }
+.chron .tx { flex: 1; }
+.chron.disaster { background: #2a2016; }
+.chron.extinction { background: #2a1820; }
+.chron.speciation { background: #16261c; }
+.chron.crash { background: #2a1616; }
+
+/* champions gallery */
+#championList { display: flex; flex-direction: column; gap: 7px; margin-top: 8px; }
+.champ { display: flex; align-items: center; gap: 10px; padding: 8px; border: 1px solid var(--line);
+  border-radius: 8px; background: var(--panel2); }
+.champ-emblem { flex-shrink: 0; background: #0b1019; border-radius: 6px; }
+.champ-meta { flex: 1; min-width: 0; }
+.champ-title { font-weight: 700; font-size: 12px; }
+.champ-title small { color: var(--muted); font-weight: 400; }
+.champ-stats { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.champ-spawn { flex-shrink: 0; }
+
+/* lineage tooltip */
+#lineageTip {
+  position: fixed; z-index: 200; pointer-events: none;
+  background: rgba(16, 22, 33, 0.97); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; max-width: 230px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.1s;
+  font-size: 11px; line-height: 1.45;
+}
+#lineageTip.show { opacity: 1; }
+#lineageTip .tip-title { font-weight: 700; font-size: 12px; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+#lineageTip .tip-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+#lineageTip .tip-row { color: var(--muted); }
+#lineageTip .tip-row b { color: var(--text); font-variant-numeric: tabular-nums; }
+#lineageTip .tip-traits { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--line); color: var(--muted); }
+
+/* toast */
+#toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--panel2); border: 1px solid var(--line); color: var(--text); padding: 9px 16px; border-radius: 8px; opacity: 0; transition: opacity 0.2s, transform 0.2s; pointer-events: none; z-index: 100; }
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

@@ -230,6 +230,14 @@ h3 {
   color: var(--muted);
 }
 
+.project-link {
+  display: inline-flex;
+  margin-top: 14px;
+  color: var(--accent-strong);
+  font-weight: 800;
+  text-decoration-color: rgba(15, 109, 95, 0.4);
+}
+
 .project-kicker {
   margin: 0 0 44px;
   color: var(--sun);

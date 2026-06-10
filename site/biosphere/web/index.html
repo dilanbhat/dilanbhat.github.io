@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BioSphere — Evolving Creature Simulation</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ============ TOP BAR ============ -->
+  <header id="topbar">
+    <div class="brand">🧬 <span>BioSphere</span></div>
+    <div class="transport">
+      <button id="btnPlay" class="btn primary" title="Play / Pause (Space)">⏸ Pause</button>
+      <button id="btnStep" class="btn" title="Step one tick">⏭ Step</button>
+      <label class="speedwrap">Speed
+        <input id="speed" type="range" min="1" max="20" value="3">
+        <span id="speedLabel">3×</span>
+      </label>
+      <button id="btnTurbo" class="btn" title="Run many generations headless">⏩ Fast-forward</button>
+    </div>
+    <div id="liveStats" class="livestats"></div>
+  </header>
+
+  <div id="main">
+    <!-- ============ LEFT: CONTROLS ============ -->
+    <aside id="left" class="panel">
+      <div class="section">
+        <h3>World</h3>
+        <label class="slider">Scenario
+          <select id="scenario">
+            <option value="balanced">Balanced</option>
+            <option value="eden">Eden (lush &amp; peaceful)</option>
+            <option value="predator">Predator pressure</option>
+            <option value="archipelago">Archipelago</option>
+            <option value="desert">Harsh desert</option>
+          </select></label>
+        <button id="btnReset" class="btn wide">🔄 New World</button>
+        <div class="row">
+          <button id="btnSave" class="btn">💾 Save</button>
+          <button id="btnLoad" class="btn">📂 Load</button>
+          <input id="fileLoad" type="file" accept="application/json" hidden>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Environment knobs</h3>
+        <label class="slider">Plant growth <span data-out="foodGrowth"></span>
+          <input id="foodGrowth" type="range" min="0" max="3" step="0.05" value="1"></label>
+        <label class="slider">Energy drain <span data-out="energyDrain"></span>
+          <input id="energyDrain" type="range" min="0.2" max="3" step="0.05" value="1"></label>
+        <label class="slider">Mutation rate <span data-out="mutationScale"></span>
+          <input id="mutationScale" type="range" min="0" max="4" step="0.05" value="1"></label>
+        <label class="slider">Turn agility <span data-out="turnRate"></span>
+          <input id="turnRate" type="range" min="1" max="10" step="0.1" value="4"></label>
+        <label class="check"><input id="dayNight" type="checkbox" checked> Day / night cycle</label>
+        <label class="check"><input id="autoRespawn" type="checkbox" checked> Auto-respawn floor</label>
+      </div>
+
+      <div class="section">
+        <h3>Seasons &amp; disasters</h3>
+        <label class="check"><input id="seasons" type="checkbox" checked> Seasonal cycle</label>
+        <label class="check"><input id="disasters" type="checkbox" checked> Random disasters</label>
+        <div class="tools" style="margin-top:8px">
+          <button class="btn small" data-disaster="drought">🏜️ Drought</button>
+          <button class="btn small" data-disaster="bloom">🌸 Superbloom</button>
+          <button class="btn small" data-disaster="plague">☣️ Plague</button>
+          <button class="btn small" data-disaster="meteor">☄️ Meteor</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>God mode — paint</h3>
+        <div class="tools">
+          <button class="tool active" data-tool="select">👆 Select</button>
+          <button class="tool" data-tool="food">🌱 Food</button>
+          <button class="tool" data-tool="grass">🟩 Grass</button>
+          <button class="tool" data-tool="water">💧 Water</button>
+          <button class="tool" data-tool="rock">🪨 Rock</button>
+          <button class="tool" data-tool="dirt">🟫 Dirt</button>
+          <button class="tool" data-tool="addHerb">🐰 +Herbivore</button>
+          <button class="tool" data-tool="addCarn">🦊 +Carnivore</button>
+          <button class="tool" data-tool="kill">💀 Remove</button>
+          <button class="tool" data-tool="erase-food">🧹 Clear food</button>
+        </div>
+        <label class="slider">Brush size <span data-out="brush"></span>
+          <input id="brush" type="range" min="8" max="120" step="2" value="36"></label>
+      </div>
+
+      <div class="section">
+        <h3>View</h3>
+        <label class="slider">Color by
+          <select id="colorMode">
+            <option value="species">Species</option>
+            <option value="diet">Diet</option>
+            <option value="energy">Energy</option>
+            <option value="generation">Generation</option>
+          </select></label>
+        <label class="slider">Overlay
+          <select id="overlay">
+            <option value="none">None (plant food)</option>
+            <option value="density">Activity heatmap</option>
+            <option value="deaths">Death heatmap</option>
+            <option value="food">Food heatmap</option>
+          </select></label>
+        <label class="check"><input id="showVision" type="checkbox"> Show vision cones</label>
+        <p class="hint">Scroll to zoom · drag to pan · click a creature to inspect</p>
+      </div>
+    </aside>
+
+    <!-- ============ CENTER: CANVAS ============ -->
+    <main id="stage">
+      <canvas id="view"></canvas>
+      <div id="seasonBadge"></div>
+      <canvas id="minimap" width="180" height="120"></canvas>
+      <div id="turboOverlay" class="hidden">
+        <div class="turbo-card">
+          <div class="spinner"></div>
+          <h2>Fast-forwarding evolution…</h2>
+          <p id="turboProgress">generation 0</p>
+          <button id="btnStopTurbo" class="btn primary">Stop</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ============ RIGHT: ANALYTICS + INSPECTOR ============ -->
+    <aside id="right" class="panel">
+      <div class="tabs">
+        <button class="tab active" data-tab="analytics">📊 Analytics</button>
+        <button class="tab" data-tab="inspect">🔬 Inspect</button>
+        <button class="tab" data-tab="species">🧫 Species</button>
+        <button class="tab" data-tab="lineage">🌳 Lineage</button>
+        <button class="tab" data-tab="chronicle">📜 Chronicle</button>
+        <button class="tab" data-tab="champions">🏆 Champions</button>
+      </div>
+
+      <div class="tabpage" data-page="analytics">
+        <h4>Population</h4>
+        <canvas class="chart" id="chPop" width="320" height="110"></canvas>
+        <h4>Plant cover</h4>
+        <canvas class="chart" id="chEco" width="320" height="80"></canvas>
+        <h4>Births &amp; deaths /s</h4>
+        <canvas class="chart" id="chVit" width="320" height="80"></canvas>
+        <h4>Average traits</h4>
+        <canvas class="chart" id="chTraits" width="320" height="110"></canvas>
+        <h4>Trait distribution
+          <select id="histGene"></select>
+        </h4>
+        <canvas class="chart" id="chHist" width="320" height="90"></canvas>
+      </div>
+
+      <div class="tabpage hidden" data-page="inspect">
+        <div id="inspectEmpty" class="hint">Click a creature (or use 👆 Select) to inspect its brain &amp; genes.</div>
+        <div id="inspectBody" class="hidden">
+          <div class="inspect-head">
+            <span id="inspName">Creature</span>
+            <button id="btnBreed" class="btn small" title="Spawn 3 mutated offspring">🧬 Breed</button>
+            <button id="btnFollow" class="btn small">🎯 Follow</button>
+          </div>
+          <div id="inspStats" class="kv"></div>
+          <h4>Brain (live activations)</h4>
+          <canvas id="chBrain" width="320" height="220"></canvas>
+          <h4>Genes</h4>
+          <div id="geneBars"></div>
+        </div>
+      </div>
+
+      <div class="tabpage hidden" data-page="species">
+        <div class="hint">Live genetic clusters. Click one to inspect an exemplar.</div>
+        <div id="speciesList"></div>
+      </div>
+
+      <div class="tabpage hidden" data-page="lineage">
+        <div class="seg">
+          <button class="segbtn active" data-view="tree">🌳 Tree</button>
+          <button class="segbtn" data-view="muller">🌊 Muller plot</button>
+        </div>
+        <div id="treeView">
+          <div class="hint">Phylogenetic tree — each line is a species over time; branches mark
+            where new species split from an ancestor, ✕ marks extinction. Click a living
+            lineage to inspect a member.</div>
+          <label class="check"><input id="pruneMinor" type="checkbox" checked> Hide minor / short-lived lineages</label>
+          <canvas class="chart" id="chLineage" height="380" style="height:380px"></canvas>
+          <div id="lineageLegend" class="hint">🐰 herbivore · 🦊 carnivore · thicker = larger peak population · dashed = extinct</div>
+        </div>
+        <div id="mullerView" class="hidden">
+          <div class="hint">Each band is a lineage's share of the population over time. Band
+            thickness = that species' numbers; total height = overall population.</div>
+          <canvas class="chart" id="chMuller" height="300" style="height:300px"></canvas>
+        </div>
+      </div>
+
+      <div class="tabpage hidden" data-page="chronicle">
+        <div class="hint">A running history of major evolutionary &amp; environmental events.</div>
+        <div id="chronicleList"></div>
+      </div>
+
+      <div class="tabpage hidden" data-page="champions">
+        <div class="hint">The all-time most successful creatures (by offspring, food &amp; longevity).
+          Hit <b>Spawn</b> to drop a clone of a legend back into the world.</div>
+        <div id="championList"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/nn.js"></script>
+<script src="js/genome.js"></script>
+<script src="js/creature.js"></script>
+<script src="js/world.js"></script>
+<script src="js/simulation.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

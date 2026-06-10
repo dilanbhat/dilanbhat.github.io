@@ -15,6 +15,12 @@ python3 -m http.server 8000
 
 Then visit `http://localhost:8000`.
 
+BioSphere is available locally at:
+
+```text
+http://localhost:8000/site/biosphere/
+```
+
 ## GitHub Pages Setup
 
 This repo includes `.github/workflows/pages.yml`, which deploys the static site
