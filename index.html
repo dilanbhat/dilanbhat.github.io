@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Personal website for Dilan Bhat, built for GitHub Pages."
+    >
+    <meta property="og:title" content="Dilan Bhat">
+    <meta
+      property="og:description"
+      content="Personal website for projects, writing, and ways to connect."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/hero-workspace.png">
+    <title>Dilan Bhat</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Dilan Bhat home">DB</a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Personal website</p>
+          <h1 id="hero-title">Dilan Bhat</h1>
+          <p class="hero-text">
+            A simple home for projects, notes, experiments, and the useful
+            things I am building next.
+          </p>
+          <div class="hero-actions" aria-label="Primary links">
+            <a class="button primary" href="#work">View work</a>
+            <a class="button secondary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <figure class="hero-media">
+          <img
+            src="assets/hero-workspace.png"
+            alt="A bright desk with a laptop, notebook, pen, and plant."
+            width="1536"
+            height="1024"
+          >
+        </figure>
+      </section>
+
+      <section class="section" id="work" aria-labelledby="work-title">
+        <div class="section-heading">
+          <p class="eyebrow">Work</p>
+          <h2 id="work-title">Featured Projects</h2>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <p class="project-kicker">Project</p>
+            <h3>Personal Site</h3>
+            <p>
+              A lightweight GitHub Pages site that is easy to update as new
+              projects, writing, and links are ready to share.
+            </p>
+          </article>
+          <article class="project-card">
+            <p class="project-kicker">Experiment</p>
+            <h3>Coming Soon</h3>
+            <p>
+              Use this space for a build log, portfolio piece, research note,
+              app, or anything else worth keeping close.
+            </p>
+          </article>
+          <article class="project-card">
+            <p class="project-kicker">Writing</p>
+            <h3>Notes</h3>
+            <p>
+              A spot for essays, quick technical notes, reading lists, or links
+              to published work elsewhere.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="split-section" id="about" aria-labelledby="about-title">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2 id="about-title">Building, learning, and sharing in public.</h2>
+        </div>
+        <p>
+          This site is intentionally simple: fast to load, readable on any
+          screen, and ready to grow. Replace this paragraph with a short bio,
+          a current focus, or the kind of work you want people to associate
+          with your name.
+        </p>
+      </section>
+
+      <section class="contact-band" id="contact" aria-labelledby="contact-title">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title">Let’s connect.</h2>
+        </div>
+        <div class="contact-links">
+          <a href="https://github.com/dilanbhat">GitHub</a>
+          <a href="https://github.com/dilanbhat/dilanbhat02.github.io">Repository</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; <span id="year">2026</span> Dilan Bhat. Built with GitHub Pages.</p>
+    </footer>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
