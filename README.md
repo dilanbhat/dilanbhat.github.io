@@ -1,9 +1,7 @@
-# Dilan Bhat
+# dilanbhat.com
 
-A simple static personal website built for GitHub Pages.
-
-Update the homepage copy and contact links in `index.html` when you are ready
-to make it more personal.
+A static personal website for `dilanbhat.com`, published from
+`dilanbhat/dilanbhat.github.io` with GitHub Pages.
 
 ## Local Preview
 
@@ -18,8 +16,10 @@ Then visit `http://localhost:8000`.
 BioSphere is available locally at:
 
 ```text
-http://localhost:8000/site/biosphere/
+http://localhost:8000/biosphere/
 ```
+
+The original `UnitGame` Java prototype is preserved in `biosphere/src/`.
 
 ## GitHub Pages Setup
 
@@ -32,14 +32,9 @@ To enable it in GitHub:
 2. Under **Build and deployment**, choose **GitHub Actions** as the source.
 3. Push to `main`, then wait for the **Deploy GitHub Pages** workflow to finish.
 
-Because the remote is currently `dilanbhat/dilanbhat02.github.io`, GitHub will
-publish it as a project site unless this repository is moved to the `dilanbhat02`
-account. Project-site URL:
+The `CNAME` file sets the custom domain to `dilanbhat.com`. BioSphere is
+published at:
 
 ```text
-https://dilanbhat.github.io/dilanbhat02.github.io/
+https://dilanbhat.com/biosphere/
 ```
-
-If you want the root user-site URL `https://dilanbhat02.github.io/`, the
-repository must be named `dilanbhat02.github.io` under the `dilanbhat02` GitHub
-account.

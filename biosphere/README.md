@@ -6,17 +6,16 @@ sculpt the environment, inspect any creature's brain, and fast-forward through
 generations.
 
 > This grew out of the original Java `UnitGame` prototype (still in `src/`). The
-> full simulation lives in `web/` and runs entirely in the browser — no build step.
+> full simulation runs directly from this folder in the browser — no build step.
 
-## Run it
+## Run it locally
 
 ```bash
-cd web
 python3 -m http.server 8777
-# open http://localhost:8777
+# open http://localhost:8777/biosphere/
 ```
 
-Or just open `web/index.html` directly in a browser.
+On the published site, BioSphere lives at `/biosphere/`.
 
 ## What's simulated
 
@@ -60,7 +59,7 @@ Or just open `web/index.html` directly in a browser.
 
 `Space` play/pause · `.` step · `f` fast-forward · `v` toggle vision cones
 
-## Code layout (`web/js/`)
+## Code layout (`js/`)
 
 | File | Responsibility |
 |------|----------------|
