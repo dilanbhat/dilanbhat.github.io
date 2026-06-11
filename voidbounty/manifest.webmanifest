@@ -1,0 +1,12 @@
+{
+  "name": "VOIDBOUNTY",
+  "short_name": "VOIDBOUNTY",
+  "description": "A turn-based space bounty-hunting roguelite. Hunt the galaxy's most wanted. Die. Upgrade. Hunt again.",
+  "start_url": "/voidbounty/",
+  "scope": "/voidbounty/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07090f",
+  "theme_color": "#07090f",
+  "icons": []
+}
